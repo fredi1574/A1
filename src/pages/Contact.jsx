@@ -1,13 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-import { TextField, Button } from "@mui/material";
+import { useRef } from "react";
 
 import Header from "../components/Header";
 
 const ContactUs = () => {
-  const [isDarkMode, setIsDarkMode] = useState(
-    localStorage.getItem("theme") === "dark"
-  );
-
   const nameRef = useRef();
   const emailRef = useRef();
   const messageRef = useRef();
