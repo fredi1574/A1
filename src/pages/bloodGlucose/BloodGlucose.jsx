@@ -7,8 +7,6 @@ import BloodGlucoseDescription from "./BloodGlucoseDescription";
 import { Tab, Tabs } from "../../components/Tabs";
 
 const BloodGlucose = () => {
-  const isDarkMode = localStorage.getItem("theme") === "dark";
-
   return (
     <div>
       <Header

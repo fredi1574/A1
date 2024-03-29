@@ -10,8 +10,6 @@ import {
 import { hours } from "../../utils/timeArrays";
 
 const DailyGlucose = () => {
-  const isDarkMode = localStorage.getItem("theme") === "dark";
-
   const [bloodGlucose, setBloodGlucose] = useState(
     hours.map((hour) => ({ hours: hour, bloodGlucose: 0 }))
   );
