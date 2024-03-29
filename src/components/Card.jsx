@@ -10,7 +10,7 @@ const Card = ({ cardName, imagePath, alt, path }) => {
   return (
     <button
       onClick={handlePath}
-      className="border-2 border-waterIntake-primary rounded-xl p-4 h-60 duration-150 hover:-translate-y-5 active:scale-95 hover:bg-waterIntake-hover dark:hover:bg-[#2e6c8d] active:bg-waterIntake-active dark:active:bg-[#398bb8]"
+      className="border-2 border-waterIntake-primary rounded-xl p-4 h-52 sm:h-40 md:h-60 lg:h-72 duration-150 hover:-translate-y-5 active:scale-95 hover:bg-waterIntake-hover dark:hover:bg-[#2e6c8d] active:bg-waterIntake-active dark:active:bg-[#398bb8]"
     >
       <div className="flex items-center justify-center">
         <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-waterIntake-primary dark:text-waterIntake-active font-fredoka">

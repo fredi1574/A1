@@ -36,13 +36,13 @@ const Container = () => {
         hoverColor="hover:bg-[#45A5D9]"
       />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="dark:text-white text-4xl sm:text-xl lg:text-5xl md:text-5xl text-center mt-8 mb-12">
+        <h1 className="dark:text-white sm:text-xl lg:text-5xl md:text-4xl text-center mt-8 mb-12">
           Welcome to{" "}
           <b className="text-waterIntake-primary dark:text-[#2e6c8d]">
             Health Monitor!
           </b>
         </h1>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-10">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-10">
           {cards.map(({ name, path, image, imageDark }) => (
             <Card
               key={path}
