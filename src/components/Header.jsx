@@ -46,10 +46,10 @@ const Header = ({ backgroundColor, darkBackgroundColor, hoverColor }) => {
         </div>
       </header>
 
-      {/* Hamburger menu for small screens */}
-      <header className="lg:hidden md:hidden sm:flex justify-end absolute right-3">
+      {/* Hamburger menu icon for small screens */}
+      <header className="md:hidden absolute right-2 -top-3">
         <button
-          className={`${backgroundColor} ${darkBackgroundColor} ${hoverColor} duration-200 p-2 rounded-md`}
+          className={`${backgroundColor} ${darkBackgroundColor} ${hoverColor} p-2 rounded-md`}
           onClick={toggleMenu}
         >
           <svg
@@ -71,7 +71,7 @@ const Header = ({ backgroundColor, darkBackgroundColor, hoverColor }) => {
         {/* Background overlay */}
         {isOpen && (
           <div
-            className="fixed inset-0 bg-black opacity-50 z-50"
+            className="fixed inset-0 bg-black opacity-50"
             onClick={() => setIsOpen(false)}
           ></div>
         )}
@@ -79,13 +79,13 @@ const Header = ({ backgroundColor, darkBackgroundColor, hoverColor }) => {
         {/* Hamburger menu content */}
         {isOpen && (
           <div
-            className={`${backgroundColor} ${darkBackgroundColor} fixed top-0 right-0 h-full w-1/3 border-l border-gray-800 text-white z-50`}
+            className={`${backgroundColor} ${darkBackgroundColor} fixed top-0 right-0 h-full w-2/5 border-l border-gray-800 text-white z-50`}
           >
             <ul className="flex flex-col items-center h-full justify-center p-4 space-y-4">
               <li>
                 <Link
                   to="/Cards"
-                  className={`${hoverColor} duration-150 rounded-2xl px-4 py-1`}
+                  className={`${hoverColor} text-3xl duration-150 rounded-2xl px-4 py-1`}
                   onClick={toggleMenu}
                 >
                   Home
@@ -94,7 +94,7 @@ const Header = ({ backgroundColor, darkBackgroundColor, hoverColor }) => {
               <li>
                 <Link
                   to="/About"
-                  className={`${hoverColor} duration-150 rounded-2xl px-4 py-1`}
+                  className={`${hoverColor} text-3xl duration-150 rounded-2xl px-4 py-1`}
                   onClick={toggleMenu}
                 >
                   About
@@ -103,7 +103,7 @@ const Header = ({ backgroundColor, darkBackgroundColor, hoverColor }) => {
               <li>
                 <Link
                   to="/Contact"
-                  className={`${hoverColor} duration-150 rounded-2xl px-4 py-1`}
+                  className={`${hoverColor} text-3xl duration-150 rounded-2xl px-4 py-1`}
                   onClick={toggleMenu}
                 >
                   Contact
@@ -120,18 +120,13 @@ const Header = ({ backgroundColor, darkBackgroundColor, hoverColor }) => {
               </li>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-white"
+                className={`absolute top-2 right-2 h-8 w-8 text-white ${hoverColor} rounded-lg`}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
                 onClick={toggleMenu}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
+                <path d="M6 18L18 6M6 6l12 12" />
               </svg>
             </ul>
           </div>
