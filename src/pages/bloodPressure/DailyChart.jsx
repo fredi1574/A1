@@ -15,6 +15,7 @@ const DailyChart = () => {
   const [pressure, setPressure] = useState(
     hours.map((hour) => ({ hour, systolic: 0, diastolic: 0 }))
   );
+
   const systolicRef = useRef();
   const diastolicRef = useRef();
   const hoursRef = useRef();
@@ -35,13 +36,13 @@ const DailyChart = () => {
   };
 
   return (
-    <div className="m-[0_auto]">
+    <div>
       <div className="flex justify-center">
         <LineChart
-          width={window.innerWidth * 0.6}
-          height={window.innerHeight * 0.4}
+          width={window.innerWidth * 0.75}
+          height={window.innerHeight * 0.5}
           data={pressure}
-          margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
+          margin={{ top: 0, right: 0, bottom: 5, left: 0 }}
         >
           <Line type="monotone" dataKey="systolic" stroke="#FF5CB6" />
           <Line type="monotone" dataKey="diastolic" stroke="#e0007b" />

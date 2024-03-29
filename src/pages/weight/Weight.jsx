@@ -1,19 +1,11 @@
-import YearChart from "./YearChart";
+import { Tabs, Tab } from "../../components/Tabs";
 
-import { TabContext, TabPanel, TabList } from "@mui/lab";
-import { Tab } from "@mui/material";
-import { useState } from "react";
 import MonthChart from "./MonthChart";
+import YearChart from "./YearChart";
 import WeightDescription from "./WeightDescription";
 import Header from "../../components/Header";
 
 const Weight = () => {
-  const [selectedTab, setSelectedTab] = useState("monthly");
-
-  const handleTabChange = (event, newValue) => {
-    setSelectedTab(newValue);
-  };
-
   return (
     <div>
       <Header
@@ -26,33 +18,14 @@ const Weight = () => {
           Weight
         </h1>
         <div className="flex flex-col justify-center w-full rounded-xl">
-          <TabContext value={selectedTab}>
-            <TabList
-              onChange={handleTabChange}
-              centered
-              sx={{
-                "& .MuiTabs-indicator": {
-                  backgroundColor: "#55A33E",
-                },
-                "& .MuiTab-root": {
-                  width: "30%",
-                  color: "#55A33E",
-                },
-                "& .MuiTab-root.Mui-selected": {
-                  color: "#55A33E",
-                },
-              }}
-            >
-              <Tab label="Monthly" value="monthly" />
-              <Tab label="Yearly" value="yearly" />
-            </TabList>
-            <TabPanel value="monthly" className="m-[0_auto]">
+          <Tabs borderColor="border-b-[#55A33E]" color="text-[#55A33E]">
+            <Tab label="Monthly" backgroundColor="bg-[#55A33E]">
               <MonthChart />
-            </TabPanel>
-            <TabPanel value="yearly" className="m-[0_auto]">
+            </Tab>
+            <Tab label="Yearly" backgroundColor="bg-[#55A33E]">
               <YearChart />
-            </TabPanel>
-          </TabContext>
+            </Tab>
+          </Tabs>
         </div>
         <WeightDescription />
       </div>

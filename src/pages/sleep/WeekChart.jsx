@@ -31,7 +31,7 @@ const WeekChart = () => {
     };
 
     fetchSleepData();
-  }, []);
+  }, [username]);
 
   const addToChart = async () => {
     // Parse the selected date
@@ -83,10 +83,10 @@ const WeekChart = () => {
     <div>
       <div className="flex justify-center">
         <BarChart
-          width={window.innerWidth * 0.6}
-          height={window.innerHeight * 0.4}
+          width={window.innerWidth * 0.75}
+          height={window.innerHeight * 0.5}
           data={sleepData}
-          margin={{ top: 5, right: 20, bottom: 10, left: 0 }}
+          margin={{ top: 0, right: 0, bottom: 10, left: 0 }}
         >
           <XAxis
             dataKey="day"
@@ -94,7 +94,7 @@ const WeekChart = () => {
             label={{
               value: "Day of the week",
               position: "insideBottom",
-              dy: 10,
+              dy: 15,
             }}
           />
           <YAxis

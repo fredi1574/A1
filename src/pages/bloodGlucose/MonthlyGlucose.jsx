@@ -24,10 +24,10 @@ const MonthlyGlucose = () => {
 
   return (
     <LineChart
-      width={window.innerWidth * 0.6}
-      height={window.innerHeight * 0.4}
+      width={window.innerWidth * 0.75}
+      height={window.innerHeight * 0.5}
       data={bloodGlucose}
-      margin={{ top: 5, right: 20, bottom: 10, left: 0 }}
+      margin={{ top: 0, right: 0, bottom: 10, left: 0 }}
     >
       <XAxis
         dataKey="day"

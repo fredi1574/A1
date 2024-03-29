@@ -34,25 +34,27 @@ const MonthChart = () => {
 
   return (
     <div>
-      <LineChart
-        width={window.innerWidth * 0.6}
-        height={window.innerHeight * 0.4}
-        data={weight}
-        margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
-      >
-        <Line type="monotone" dataKey="weight" stroke="#55A33E" />
-        <CartesianGrid stroke="#B5DB80" strokeDasharray="10" />
-        <XAxis
-          dataKey="weeks"
-          stroke="#55A33E"
-          label={{ value: "Weeks", position: "insideBottom", dy: 10 }}
-        />
-        <YAxis
-          stroke="#55A33E"
-          label={{ value: "Kg", angle: -90, position: "insideLeft" }}
-        />
-        <Tooltip />
-      </LineChart>
+      <div className="flex justify-center">
+        <LineChart
+          width={window.innerWidth * 0.75}
+          height={window.innerHeight * 0.5}
+          data={weight}
+          margin={{ top: 0, right: 0, bottom: 5, left: 0 }}
+        >
+          <Line type="monotone" dataKey="weight" stroke="#55A33E" />
+          <CartesianGrid stroke="#B5DB80" strokeDasharray="10" />
+          <XAxis
+            dataKey="weeks"
+            stroke="#55A33E"
+            label={{ value: "Weeks", position: "insideBottom", dy: 10 }}
+          />
+          <YAxis
+            stroke="#55A33E"
+            label={{ value: "Kg", angle: -90, position: "insideLeft" }}
+          />
+          <Tooltip />
+        </LineChart>
+      </div>
       <h1 className="text-2xl text-weight-primary dark:text-weightDark-primary border-b-2 border-weight-primary dark:border-weightDark-primary text-center pb-2 my-6">
         Add weight
       </h1>

@@ -1,19 +1,11 @@
-import { TabContext, TabPanel, TabList } from "@mui/lab";
-import { Tab } from "@mui/material";
+import { Tabs, Tab } from "../../components/Tabs";
 
-import { useState } from "react";
 import PressureDescription from "./PressureDescription";
 import DailyChart from "./DailyChart";
 import MonthlyPressure from "./MonthlyPressure";
 import Header from "../../components/Header";
 
 const BloodPressure = () => {
-  const [selectedTab, setSelectedTab] = useState("daily");
-
-  const handleTabChange = (event, newValue) => {
-    setSelectedTab(newValue);
-  };
-
   return (
     <div>
       <Header
@@ -25,33 +17,14 @@ const BloodPressure = () => {
         <h1 className="text-3xl text-pressure-primary border-b-2 border-pressure-primary text-center pb-6 my-6">
           Blood Pressure
         </h1>
-        <TabContext value={selectedTab}>
-          <TabList
-            centered
-            onChange={handleTabChange}
-            sx={{
-              "& .MuiTabs-indicator": {
-                backgroundColor: "#FF5CB6",
-              },
-              "& .MuiTab-root": {
-                width: "30%",
-                color: "#FF5CB6",
-              },
-              "& .MuiTab-root.Mui-selected": {
-                color: "#FF5CB6",
-              },
-            }}
-          >
-            <Tab label="Daily" value="daily" />
-            <Tab label="Monthly" value="monthly" />
-          </TabList>
-          <TabPanel value="daily">
+        <Tabs borderColor="border-b-[#FF5CB6]" color="text-[#FF5CB6]">
+          <Tab label="Daily" backgroundColor="bg-[#FF5CB6]">
             <DailyChart />
-          </TabPanel>
-          <TabPanel value="monthly">
+          </Tab>
+          <Tab label="Monthly">
             <MonthlyPressure />
-          </TabPanel>
-        </TabContext>
+          </Tab>
+        </Tabs>
         <PressureDescription />
       </div>
     </div>

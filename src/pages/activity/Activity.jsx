@@ -3,18 +3,10 @@ import MonthlySteps from "./MonthlySteps";
 import Sports from "./Sports";
 import Header from "../../components/Header";
 
-import { useState } from "react";
-
-import { TabContext, TabPanel, TabList } from "@mui/lab";
-import { Tab } from "@mui/material";
+import { Tabs, Tab } from "../../components/Tabs";
 import ActivityDescription from "./ActivityDescription";
 
 const Activity = () => {
-  const [selectedTab, setSelectedTab] = useState("weekly");
-  const handleTabChange = (event, newValue) => {
-    setSelectedTab(newValue);
-  };
-
   return (
     <div>
       <Header
@@ -26,37 +18,17 @@ const Activity = () => {
         <h1 className="text-3xl text-activity-primary border-b-2 border-activity-primary text-center pb-6 my-6">
           Activity
         </h1>
-        <TabContext value={selectedTab}>
-          <TabList
-            onChange={handleTabChange}
-            centered
-            sx={{
-              "& .MuiTabs-indicator": {
-                backgroundColor: "#FBB24B",
-              },
-              "& .MuiTab-root": {
-                width: "30%",
-                color: "#FBB24B",
-              },
-              "& .MuiTab-root.Mui-selected": {
-                color: "#FBB24B",
-              },
-            }}
-          >
-            <Tab label="Weekly Steps" value={"weekly"} />
-            <Tab label="Monthly Steps" value={"monthly"} />
-            <Tab label="Sports" value={"sports"} />
-          </TabList>
-          <TabPanel value="weekly">
+        <Tabs borderColor="border-b-[#FBB24B]" color="text-[#FBB24B]">
+          <Tab label="Weekly" backgroundColor="bg-[#FBB24B]">
             <DailySteps />
-          </TabPanel>
-          <TabPanel value="monthly">
+          </Tab>
+          <Tab label="Monthly">
             <MonthlySteps />
-          </TabPanel>
-          <TabPanel value="sports">
+          </Tab>
+          <Tab label="Sports">
             <Sports />
-          </TabPanel>
-        </TabContext>
+          </Tab>
+        </Tabs>
         <ActivityDescription />
       </div>
     </div>

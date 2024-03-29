@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
@@ -9,8 +9,6 @@ const MonthlySteps = () => {
   const currentYear = currentDate.getFullYear();
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
-  const dayRef = useRef();
-  const stepsRef = useRef();
   const [steps, setSteps] = useState(
     Array.from({ length: daysInMonth }, (ignore, index) => ({
       day: index + 1,
@@ -25,8 +23,8 @@ const MonthlySteps = () => {
       </h1>
       <div className="flex justify-center">
         <BarChart
-          width={window.innerWidth * 0.6}
-          height={window.innerHeight * 0.4}
+          width={window.innerWidth * 0.75}
+          height={window.innerHeight * 0.5}
           data={steps}
           margin={{ top: 5, right: 20, bottom: 10, left: 0 }}
         >

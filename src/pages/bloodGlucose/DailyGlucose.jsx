@@ -37,13 +37,13 @@ const DailyGlucose = () => {
   return (
     <div>
       <LineChart
-        width={window.innerWidth * 0.6}
-        height={window.innerHeight * 0.4}
+        width={window.innerWidth * 0.75}
+        height={window.innerHeight * 0.5}
         data={bloodGlucose}
-        margin={{ top: 5, right: 20, bottom: 10, left: 0 }}
+        margin={{ top: 0, right: 5, bottom: 10, left: 0 }}
       >
         <Line type="monotone" dataKey="bloodGlucose" stroke="#FF0A0A" />
-        <CartesianGrid stroke="#C03535" strokeDasharray="10" />
+        <CartesianGrid stroke="#C03535" opacity={0.5} strokeDasharray="10" />
         <XAxis
           dataKey="hours"
           stroke="#FF0A0A"

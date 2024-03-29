@@ -1,21 +1,13 @@
-import { useState } from "react";
+import Header from "../../components/Header";
 
 import DailyGlucose from "./DailyGlucose";
-import { TabContext, TabPanel, TabList } from "@mui/lab";
-import { Tab } from "@mui/material";
-
 import MonthlyGlucose from "./MonthlyGlucose";
 import BloodGlucoseDescription from "./BloodGlucoseDescription";
-import Header from "../../components/Header";
+
+import { Tab, Tabs } from "../../components/Tabs";
 
 const BloodGlucose = () => {
   const isDarkMode = localStorage.getItem("theme") === "dark";
-
-  const [selectedTab, setSelectedTab] = useState("daily");
-
-  const handleTabChange = (event, newValue) => {
-    setSelectedTab(newValue);
-  };
 
   return (
     <div>
@@ -29,34 +21,14 @@ const BloodGlucose = () => {
           Blood Glucose
         </h1>
         <div className="flex flex-col justify-center w-full rounded-xl">
-          <TabContext value={selectedTab}>
-            <TabList
-              onChange={handleTabChange}
-              centered
-              sx={{
-                "& .MuiTabs-indicator": {
-                  backgroundColor: "#FF0A0A",
-                  borderRadius: "10px 10px 0 0",
-                },
-                "& .MuiTab-root": {
-                  width: "30%",
-                  color: "#FF0A0A",
-                },
-                "& .MuiTab-root.Mui-selected": {
-                  color: "#FF0A0A",
-                },
-              }}
-            >
-              <Tab label="Daily" value="daily" />
-              <Tab label="Monthly" value="monthly" />
-            </TabList>
-            <TabPanel value="daily" className="m-[0_auto]">
+          <Tabs borderColor="border-b-[#FF0A0A]" color="text-[#FF0A0A]">
+            <Tab label="Weekly" backgroundColor="bg-[#FF0A0A]">
               <DailyGlucose />
-            </TabPanel>
-            <TabPanel value="monthly" className="m-[0_auto]">
+            </Tab>
+            <Tab label="Monthly">
               <MonthlyGlucose />
-            </TabPanel>
-          </TabContext>
+            </Tab>
+          </Tabs>
         </div>
         <BloodGlucoseDescription />
       </div>

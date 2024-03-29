@@ -39,7 +39,7 @@ const Sports = () => {
 
     setActivities([...activities, newActivity]);
 
-    dateRef.current.value = "";
+    dateRef.current.value = new Date().toISOString().slice(0, 10);
   };
 
   return (

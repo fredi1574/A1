@@ -24,17 +24,17 @@ const DailySteps = () => {
   };
 
   return (
-    <div className="m-[0_auto]">
+    <div>
       <div className="flex flex-col justify-center">
         <h1 className="text-xl text-activity-primary border-b-2 border-activity-primary text-center pb-6 my-6">
           Daily steps
         </h1>
         <div className="flex justify-center">
           <BarChart
-            width={window.innerWidth * 0.6}
-            height={window.innerHeight * 0.4}
+            width={window.innerWidth * 0.75}
+            height={window.innerHeight * 0.5}
             data={steps}
-            margin={{ top: 5, right: 20, bottom: 10, left: 0 }}
+            margin={{ top: 0, right: 0, bottom: 10, left: 0 }}
           >
             <XAxis
               dataKey="day"
