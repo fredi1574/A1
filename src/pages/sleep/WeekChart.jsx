@@ -22,9 +22,15 @@ const WeekChart = () => {
     const fetchSleepData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5555/sleep/getSleep/${username}`
+          import.meta.env.VITE_API_URI + `/sleep/getSleep/${username}`
         );
-        setSleepData(response.data);
+
+        const newData = response.data.map(({ sleepHours, dayOfWeek }) => ({
+          day: days[dayOfWeek],
+          sleep: sleepHours,
+        }));
+
+        setSleepData(newData);
       } catch (error) {
         console.error("Error fetching sleep data:", error);
       }
@@ -53,7 +59,7 @@ const WeekChart = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5555/sleep/addSleep",
+        import.meta.env.VITE_API_URI + "/sleep/addSleep",
         {
           username,
           date: selectedDate.toISOString().substring(0, 10),
@@ -61,18 +67,18 @@ const WeekChart = () => {
           dayOfWeek: selectedDay,
         }
       );
+      // Update the sleep data state with the new data in the chart
+      const newData = [...sleepData];
+      newData[selectedDay] = {
+        ...newData[selectedDay],
+        sleep: totalHours,
+      };
+      setSleepData(newData);
+
       console.log("Sleep data added:", response.data);
     } catch (error) {
       console.error("Error adding sleep data:", error);
     }
-
-    // Update the sleep data state with the new data
-    const newData = [...sleepData];
-    newData[selectedDay] = {
-      ...newData[selectedDay],
-      sleep: totalHours,
-    };
-    setSleepData(newData);
 
     // Reset the input fields
     sleepHoursRef.current.value = "8";
