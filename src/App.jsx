@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainLayout from "./components/MainLayout";
 import About from "./pages/About";
 import Cards from "./components/Cards";
+import ChangePassword from "./pages/ChangePassword";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Contact from "./pages/Contact";
@@ -40,6 +41,14 @@ function App() {
           element={
             <MainLayout backgroundColor="bg-[#d8f1ff] dark:bg-darkBackground">
               <Contact />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/ChangePassword"
+          element={
+            <MainLayout backgroundColor="bg-[#d8f1ff] dark:bg-darkBackground">
+              <ChangePassword />
             </MainLayout>
           }
         />
