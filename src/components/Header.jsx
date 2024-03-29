@@ -24,16 +24,16 @@ const Header = ({ backgroundColor, darkBackgroundColor, hoverColor }) => {
             alt="logo"
           />
         </Link>
-        <div className="flex mr-6 py-6 space-x-4">
+        <div className="flex m-6 space-x-4 pr-6">
           <Link
             to="/About"
-            className={`${hoverColor} duration-150 rounded-2xl px-4 py-1`}
+            className={`${hoverColor} text-xl duration-150 rounded-3xl py-2 px-4`}
           >
             About
           </Link>
           <Link
             to="/Contact"
-            className={`${hoverColor} duration-150 rounded-2xl px-4 py-1`}
+            className={`${hoverColor} text-xl duration-150 rounded-3xl py-2 px-4`}
           >
             Contact
           </Link>
