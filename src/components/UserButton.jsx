@@ -12,13 +12,13 @@ const UserButton = ({ userName, backgroundColor, hoverColor }) => {
   };
 
   return (
-    <div className="relative">
+    <div>
       {/* User button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`text-xl ${hoverColor} duration-200 rounded-full p-4 mr-4 focus:outline-none`}
+        className={`text-xl ${hoverColor} duration-200 rounded-full focus:outline-none`}
       >
-        <div className="flex gap-2">
+        <div className="flex gap-2 p-2">
           <div>{userName}</div>
           <div>&#9660;</div>
         </div>
