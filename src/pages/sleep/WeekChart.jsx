@@ -25,10 +25,16 @@ const WeekChart = () => {
           import.meta.env.VITE_API_URI + `/sleep/getSleep/${username}`
         );
 
-        const newData = response.data.map(({ sleepHours, dayOfWeek }) => ({
-          day: days[dayOfWeek],
-          sleep: sleepHours,
-        }));
+        // Sort the sleep data by day of the week
+        const sortedData = response.data.sort(
+          (a, b) => a.dayOfWeek - b.dayOfWeek
+        );
+
+        // Map the sorted data to match the days array
+        const newData = days.map((day, index) => {
+          const found = sortedData.find((item) => item.dayOfWeek === index);
+          return { day, sleep: found ? found.sleepHours : 0 };
+        });
 
         setSleepData(newData);
       } catch (error) {
