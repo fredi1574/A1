@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import { Tabs, Tab } from "../../components/Tabs";
 
 import MonthChart from "./MonthChart";
@@ -6,6 +8,9 @@ import WeightDescription from "./WeightDescription";
 import Header from "../../components/Header";
 
 const Weight = () => {
+  useEffect(() => {
+    alert("This component is still under construction");
+  });
   return (
     <div>
       <Header

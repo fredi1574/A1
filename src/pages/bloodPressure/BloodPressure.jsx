@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import { Tabs, Tab } from "../../components/Tabs";
 
 import PressureDescription from "./PressureDescription";
@@ -6,6 +8,9 @@ import MonthlyPressure from "./MonthlyPressure";
 import Header from "../../components/Header";
 
 const BloodPressure = () => {
+  useEffect(() => {
+    alert("This component is still under construction");
+  });
   return (
     <div>
       <Header

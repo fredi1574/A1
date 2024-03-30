@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import DailySteps from "./DailySteps";
 import MonthlySteps from "./MonthlySteps";
 import Sports from "./Sports";
@@ -7,6 +9,10 @@ import { Tabs, Tab } from "../../components/Tabs";
 import ActivityDescription from "./ActivityDescription";
 
 const Activity = () => {
+  useEffect(() => {
+    alert("This component is still under construction");
+  });
+
   return (
     <div>
       <Header
