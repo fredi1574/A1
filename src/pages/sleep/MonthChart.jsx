@@ -10,12 +10,12 @@ const MonthChart = () => {
   const currentYear = currentDate.getFullYear();
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
-  const [sleepData, setSleepData] = useState(
-    Array.from({ length: daysInMonth }, (_, index) => ({
-      day: index + 1,
-      sleep: 0,
-    }))
-  );
+  const initialSleepData = Array.from({ length: daysInMonth }, (_, index) => ({
+    day: index + 1,
+    sleep: 0,
+  }));
+
+  const [sleepData, setSleepData] = useState(initialSleepData);
 
   useEffect(() => {
     const fetchSleepData = async () => {
@@ -23,16 +23,32 @@ const MonthChart = () => {
         const response = await axios.get(
           import.meta.env.VITE_API_URI + `/sleep/getSleep/${username}`
         );
-        console.log("Sleep data response:", response.data);
-        // Assuming the response data is an array of objects with 'day' and 'sleep' properties
-        setSleepData(response.data);
+
+        // Transform the sleep data to match the expected format
+        const transformedSleepData = response.data.map((item) => ({
+          day: new Date(item.date).getDate(),
+          sleep: item.sleepHours,
+        }));
+
+        // Update sleepData with fetched sleep data and keep 0 for missing days
+        const updatedSleepData = initialSleepData.map((dayData) => {
+          const foundData = transformedSleepData.find(
+            (item) => item.day === dayData.day
+          );
+          return foundData ? foundData : dayData;
+        });
+
+        // Sort the sleep data by day
+        updatedSleepData.sort((a, b) => a.day - b.day);
+
+        setSleepData(updatedSleepData);
       } catch (error) {
         console.error("Error fetching sleep data:", error);
       }
     };
 
     fetchSleepData();
-  }, [username]);
+  }, [initialSleepData, username]);
 
   return (
     <div className="flex justify-center">
