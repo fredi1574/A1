@@ -24,14 +24,15 @@ const ChangePassword = () => {
     }
 
     try {
+      const username = localStorage.getItem("username");
       const response = await axios.post(
         import.meta.env.VITE_API_URI + "/users/changePassword",
-        { oldPassword, newPassword }
+        { username, oldPassword, newPassword }
       );
 
       if (response.data.success) {
         alert("Password changed successfully");
-        navigate("/");
+        navigate("/cards");
       } else {
         alert("Old password is incorrect");
       }
