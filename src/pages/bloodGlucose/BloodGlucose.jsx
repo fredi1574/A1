@@ -20,7 +20,7 @@ const BloodGlucose = () => {
         </h1>
         <div className="flex flex-col justify-center w-full rounded-xl">
           <Tabs borderColor="border-b-[#FF0A0A]" color="text-[#FF0A0A]">
-            <Tab label="Weekly" backgroundColor="bg-[#FF0A0A]">
+            <Tab label="Daily" backgroundColor="bg-[#FF0A0A]">
               <DailyGlucose />
             </Tab>
             <Tab label="Monthly">
