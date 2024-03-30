@@ -19,7 +19,7 @@ const Header = ({ backgroundColor, darkBackgroundColor, hoverColor }) => {
       >
         <Link to="/Cards">
           <img
-            src="../../logo_square.png"
+            src="../../logoHeader.png"
             className="ml-4 h-20 my-1"
             alt="logo"
           />

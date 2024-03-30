@@ -42,7 +42,7 @@ const Login = () => {
   return (
     <div className="bg-[#d8f1ff] h-[100vh]">
       <img
-        src="../../logo2 blue gradient.png"
+        src="../../logo.png"
         className="m-[0_auto] rounded-2xl h-[15rem] mb-1"
         alt="logo"
       />

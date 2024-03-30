@@ -6,13 +6,13 @@ const Container = () => {
     {
       name: "Water intake",
       path: "/waterIntake",
-      image: "../../water_glass.png",
+      image: "../../waterGlass.png",
     },
     {
       name: "Activity monitor",
       path: "/activity",
       image: "../../running.png",
-      imageDark: "../../running-dark.png",
+      imageDark: "../../runningDark.png",
     },
     {
       name: "Blood pressure",
@@ -23,7 +23,7 @@ const Container = () => {
     {
       name: "Blood Glucose",
       path: "/bloodGlucose",
-      image: "../../blood-test2.png",
+      image: "../../bloodVial.png",
     },
     { name: "Weight tracker", path: "/weight", image: "../../scales.png" },
   ];
