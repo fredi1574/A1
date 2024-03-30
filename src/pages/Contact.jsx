@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import Header from "../components/Header";
 
@@ -6,6 +6,10 @@ const ContactUs = () => {
   const nameRef = useRef();
   const emailRef = useRef();
   const messageRef = useRef();
+
+  useEffect(() => {
+    alert("This component is still under construction");
+  });
 
   const handleSubmit = (event) => {
     event.preventDefault();
