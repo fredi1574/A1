@@ -40,7 +40,12 @@ const DailyGlucose = () => {
         data={bloodGlucose}
         margin={{ top: 0, right: 5, bottom: 10, left: 0 }}
       >
-        <Line type="monotone" dataKey="bloodGlucose" stroke="#FF0A0A" />
+        <Line
+          type="Linear"
+          dataKey="bloodGlucose"
+          stroke="#FF0A0A"
+          strokeWidth="2"
+        />
         <CartesianGrid stroke="#C03535" opacity={0.5} strokeDasharray="10" />
         <XAxis
           dataKey="hours"
