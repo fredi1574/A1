@@ -1,27 +1,38 @@
-import { useState } from "react";
-import {
-  BarChart,
-  Legend,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-} from "recharts";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
 const MonthChart = () => {
-  // Get the number of days in the current month
+  const username = localStorage.getItem("username");
+
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
   const currentYear = currentDate.getFullYear();
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
   const [sleepData, setSleepData] = useState(
-    Array.from({ length: daysInMonth }, (ignore, index) => ({
+    Array.from({ length: daysInMonth }, (_, index) => ({
       day: index + 1,
       sleep: 0,
     }))
   );
+
+  useEffect(() => {
+    const fetchSleepData = async () => {
+      try {
+        const response = await axios.get(
+          import.meta.env.VITE_API_URI + `/sleep/getSleep/${username}`
+        );
+        console.log("Sleep data response:", response.data);
+        // Assuming the response data is an array of objects with 'day' and 'sleep' properties
+        setSleepData(response.data);
+      } catch (error) {
+        console.error("Error fetching sleep data:", error);
+      }
+    };
+
+    fetchSleepData();
+  }, [username]);
 
   return (
     <div className="flex justify-center">
