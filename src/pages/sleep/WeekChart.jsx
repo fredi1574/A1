@@ -3,15 +3,15 @@ import { days } from "../../utils/timeArrays";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
 import axios from "axios";
-import useCurrentWeekBounds from "../../hooks/useCurrentWeekBounds";
+import getCurrentWeekBounds from "../../utils/getCurrentWeekBounds";
 
 const WeekChart = () => {
-  const { sunday, saturday } = useCurrentWeekBounds();
+  const username = localStorage.getItem("username");
+
+  const { sunday, saturday } = getCurrentWeekBounds();
   const [sleepData, setSleepData] = useState(
     days.map((day) => ({ day, sleep: 0 }))
   );
-
-  const username = localStorage.getItem("username");
 
   const selectedDateRef = useRef();
   const sleepHoursRef = useRef();
