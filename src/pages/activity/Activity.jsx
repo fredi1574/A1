@@ -1,6 +1,4 @@
-import { useEffect } from "react";
-
-import DailySteps from "./DailySteps";
+import WeeklySteps from "./WeeklySteps";
 import MonthlySteps from "./MonthlySteps";
 import Sports from "./Sports";
 import Header from "../../components/Header";
@@ -9,10 +7,6 @@ import { Tabs, Tab } from "../../components/Tabs";
 import ActivityDescription from "./ActivityDescription";
 
 const Activity = () => {
-  useEffect(() => {
-    alert("This component is still under construction");
-  });
-
   return (
     <div>
       <Header
@@ -26,7 +20,7 @@ const Activity = () => {
         </h1>
         <Tabs borderColor="border-b-[#FBB24B]" color="text-[#FBB24B]">
           <Tab label="Weekly" backgroundColor="bg-[#FBB24B]">
-            <DailySteps />
+            <WeeklySteps />
           </Tab>
           <Tab label="Monthly">
             <MonthlySteps />

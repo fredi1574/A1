@@ -1,20 +1,54 @@
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
 const MonthlySteps = () => {
-  // Get the number of days in the current month
+  const username = localStorage.getItem("username");
+
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
   const currentYear = currentDate.getFullYear();
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
-  const [steps, setSteps] = useState(
-    Array.from({ length: daysInMonth }, (ignore, index) => ({
-      day: index + 1,
-      steps: 0,
-    }))
-  );
+  const initialStepsData = Array.from({ length: daysInMonth }, (_, index) => ({
+    day: index + 1,
+    steps: 0,
+  }));
+
+  const [stepsData, setStepsData] = useState(initialStepsData);
+
+  useEffect(() => {
+    const fetchSteps = async () => {
+      try {
+        const response = await axios.get(
+          import.meta.env.VITE_API_URI + `/activity/getSteps/${username}`
+        );
+
+        // Transform the steps data to match the expected format
+        const transformedStepsData = response.data.map((item) => ({
+          day: new Date(item.date).getDate(),
+          steps: item.steps,
+        }));
+
+        // Update stepsData with fetched steps data and keep 0 for missing days
+        const updatedStepsData = initialStepsData.map((dayData) => {
+          const foundData = transformedStepsData.find(
+            (item) => item.day === dayData.day
+          );
+          return foundData ? foundData : dayData;
+        });
+
+        // Sort the steps data by day
+        updatedStepsData.sort((a, b) => a.day - b.day);
+
+        setStepsData(updatedStepsData);
+      } catch (error) {
+        console.error("Error fetching steps data:", error);
+      }
+    };
+
+    fetchSteps();
+  }, [initialStepsData, username]);
 
   return (
     <div className="flex flex-col justify-center">
@@ -25,8 +59,8 @@ const MonthlySteps = () => {
         <BarChart
           width={window.innerWidth * 0.75}
           height={window.innerHeight * 0.5}
-          data={steps}
-          margin={{ top: 5, right: 20, bottom: 10, left: 0 }}
+          data={stepsData}
+          margin={{ top: 0, right: 0, bottom: 10, left: 0 }}
         >
           <XAxis
             dataKey="day"
