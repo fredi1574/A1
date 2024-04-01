@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-
+import axios from "axios";
 import {
   LineChart,
   Line,
@@ -12,6 +12,9 @@ import {
 import { hours } from "../../utils/timeArrays";
 
 const DailyChart = () => {
+  const username = localStorage.getItem("username");
+  const today = new Date();
+
   const [pressure, setPressure] = useState(
     hours.map((hour) => ({ hour, systolic: 0, diastolic: 0 }))
   );
@@ -20,19 +23,26 @@ const DailyChart = () => {
   const diastolicRef = useRef();
   const hoursRef = useRef();
 
-  const addData = () => {
+  const addData = async () => {
     const systolic = parseInt(systolicRef.current.value, 10);
     const diastolic = parseInt(diastolicRef.current.value, 10);
-    const hours = parseInt(hoursRef.current.value, 10);
+    const hour = parseInt(hoursRef.current.value, 10);
 
-    const newData = [...pressure];
-    newData[hours] = {
-      hours,
-      systolic,
-      diastolic,
-    };
+    const newData = { username, hour, date: today, systolic, diastolic };
 
-    setPressure(newData);
+    try {
+      await axios.post(
+        import.meta.env.VITE_API_URI + `/bloodPressure/addPressure`,
+        newData
+      );
+      console.log(newData);
+
+      const newPressure = [...pressure];
+      newPressure[hours] = newData;
+      setPressure(newPressure);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

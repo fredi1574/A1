@@ -1,43 +1,56 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { sportStyle } from "../../utils/sports";
+import axios from "axios";
 
 const Sports = () => {
-  const sportStyle = [
-    "Running",
-    "Cycling",
-    "Swimming",
-    "Dancing",
-    "Jumping Rope",
-    "Weight Lifting",
-  ];
+  const username = localStorage.getItem("username");
 
   const sportStlyeRef = useRef();
   const dateRef = useRef();
   const [activities, setActivities] = useState([]);
 
-  const addSport = () => {
+  useEffect(() => {
+    const fetchActivities = async () => {
+      try {
+        const response = await axios.get(
+          import.meta.env.VITE_API_URI + `/activity/getActivity/${username}`
+        );
+
+        setActivities(response.data);
+      } catch (error) {
+        console.error("Error fetching activities:", error);
+      }
+    };
+    fetchActivities();
+  }, [username]);
+
+  const addSport = async () => {
     const enteredDate = new Date(dateRef.current.value);
-
-    // Check if entered date is valid
-    if (isNaN(enteredDate)) {
-      alert("Please enter a valid date.");
-      return;
-    }
-
-    // Get the selected sport from the dropdown
     const selectedSportIndex = parseInt(sportStlyeRef.current.value, 10);
     const selectedSport = sportStyle[selectedSportIndex];
 
     const newActivity = {
-      sport: selectedSport,
+      username,
       date: enteredDate.toLocaleDateString("en-il", {
         weekday: "long",
         year: "numeric",
         month: "long",
         day: "numeric",
       }),
+      activityType: selectedSport,
     };
 
-    setActivities([...activities, newActivity]);
+    try {
+      const response = await axios.post(
+        import.meta.env.VITE_API_URI + "/activity/addActivity",
+        newActivity
+      );
+      setActivities([...activities, newActivity]);
+
+      console.log("Activity added:", response.data);
+    } catch (error) {
+      console.error("Error adding activity:", error);
+    }
 
     dateRef.current.value = new Date().toISOString().slice(0, 10);
   };
@@ -84,8 +97,15 @@ const Sports = () => {
                 : "bg-activity-hover dark:bg-activityDark-background dark:text-white"
             }`}
           >
-            <span>{activity.sport}</span>
-            <span>{activity.date}</span>
+            <span>{activity.activityType}</span>
+            <span>
+              {new Date(activity.date).toLocaleDateString("en-il", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </span>
           </div>
         ))}
       </div>

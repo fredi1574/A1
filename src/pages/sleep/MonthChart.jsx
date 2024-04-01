@@ -48,7 +48,7 @@ const MonthChart = () => {
     };
 
     fetchSleepData();
-  }, [initialSleepData, username]);
+  }, [username]);
 
   return (
     <div className="flex justify-center">

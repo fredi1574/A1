@@ -48,7 +48,7 @@ const MonthlySteps = () => {
     };
 
     fetchSteps();
-  }, [initialStepsData, username]);
+  }, [username]);
 
   return (
     <div className="flex flex-col justify-center">
