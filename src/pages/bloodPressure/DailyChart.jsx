@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import {
   LineChart,
@@ -13,7 +13,7 @@ import { hours } from "../../utils/timeArrays";
 
 const DailyChart = () => {
   const username = localStorage.getItem("username");
-  const today = new Date();
+  const today = new Date().toLocaleDateString("en-IL");
 
   const [pressure, setPressure] = useState(
     hours.map((hour) => ({ hour, systolic: 0, diastolic: 0 }))
@@ -23,22 +23,46 @@ const DailyChart = () => {
   const diastolicRef = useRef();
   const hoursRef = useRef();
 
+  useEffect(() => {
+    const fetchPressure = async () => {
+      try {
+        const response = await axios.get(
+          import.meta.env.VITE_API_URI +
+            `/bloodPressure/getPressure/${username}`
+        );
+        const data = response.data;
+        const newPressure = [...pressure];
+
+        data.forEach((item) => {
+          const hourIndex = item.hour;
+          newPressure[hourIndex] = item;
+        });
+
+        // Update the state with the new pressure data
+        setPressure(newPressure);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchPressure();
+  }, [username]);
+
   const addData = async () => {
     const systolic = parseInt(systolicRef.current.value, 10);
     const diastolic = parseInt(diastolicRef.current.value, 10);
     const hour = parseInt(hoursRef.current.value, 10);
 
-    const newData = { username, hour, date: today, systolic, diastolic };
+    const newData = { hour, systolic, diastolic };
 
     try {
       await axios.post(
         import.meta.env.VITE_API_URI + `/bloodPressure/addPressure`,
-        newData
+        { username, hour, date: today, systolic, diastolic }
       );
       console.log(newData);
 
       const newPressure = [...pressure];
-      newPressure[hours] = newData;
+      newPressure[hour] = newData;
       setPressure(newPressure);
     } catch (error) {
       console.error(error);

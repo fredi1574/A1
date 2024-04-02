@@ -1,5 +1,5 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
 import {
   LineChart,
   Line,
@@ -10,6 +10,12 @@ import {
 } from "recharts";
 
 const MonthlyPressure = () => {
+  useEffect(() => {
+    alert("This component is still under construction");
+  });
+
+  const username = localStorage.getItem("username");
+
   // Get the number of days in the current month
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
@@ -23,6 +29,29 @@ const MonthlyPressure = () => {
       diastolic: 0,
     }))
   );
+
+  useEffect(() => {
+    const fetchPressure = async () => {
+      try {
+        const response = await axios.get(
+          import.meta.env.VITE_API_URI +
+            `/bloodPressure/getMonthlyPressure/${username}`
+        );
+        const data = response.data;
+
+        // Update the state with the new pressure data
+        setPressure((prevPressure) =>
+          prevPressure.map((dayData) => {
+            const matchingData = data.find((item) => item.day === dayData.day);
+            return matchingData ? { ...dayData, ...matchingData } : dayData;
+          })
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchPressure();
+  }, [username, currentYear, currentMonth]);
 
   return (
     <div className="flex justify-center">
