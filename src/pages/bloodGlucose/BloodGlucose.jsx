@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 import Header from "../../components/Header";
 import DailyGlucose from "./DailyGlucose";
 import MonthlyGlucose from "./MonthlyGlucose";
@@ -8,9 +6,6 @@ import BloodGlucoseDescription from "./BloodGlucoseDescription";
 import { Tab, Tabs } from "../../components/Tabs";
 
 const BloodGlucose = () => {
-  useEffect(() => {
-    alert("This component is still under construction");
-  });
   return (
     <div>
       <Header

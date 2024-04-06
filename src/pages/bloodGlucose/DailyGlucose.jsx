@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import axios from "axios";
 import {
   LineChart,
   Line,
@@ -10,20 +11,60 @@ import {
 import { hours } from "../../utils/timeArrays";
 
 const DailyGlucose = () => {
+  const username = localStorage.getItem("username");
+
   const [bloodGlucose, setBloodGlucose] = useState(
-    hours.map((hour) => ({ hours: hour, bloodGlucose: 0 }))
+    hours.map((hour) => ({ hour, glucose: 0 }))
   );
   const hourRef = useRef();
   const bloodGlucoseRef = useRef();
+
+  useEffect(() => {
+    const fetchGlucose = async () => {
+      try {
+        const response = await axios.get(
+          import.meta.env.VITE_API_URI + `/bloodGlucose/getGlucose/${username}`
+        );
+        const data = response.data;
+
+        // Update the state using the function provided by useState
+        setBloodGlucose((prevState) => {
+          const newGlucose = [...prevState];
+
+          data.forEach((item) => {
+            const hourIndex = item.hour;
+            newGlucose[hourIndex] = item;
+          });
+
+          return newGlucose;
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchGlucose();
+  }, [username]);
 
   const handleAddBloodGlucose = () => {
     const enteredBloodGlucose = parseInt(bloodGlucoseRef.current.value, 10);
     const enteredHour = parseInt(hourRef.current.value, 10);
 
+    try {
+      axios.post(import.meta.env.VITE_API_URI + `/bloodGlucose/addGlucose`, {
+        username,
+        hour: enteredHour,
+        date: new Date().getTime(),
+        glucose: enteredBloodGlucose,
+      });
+      console.log(username, enteredHour, enteredBloodGlucose);
+    } catch (error) {
+      console.error(error);
+    }
+
     const updatedBloodGlucose = [...bloodGlucose];
     updatedBloodGlucose[enteredHour] = {
       hours: enteredHour,
-      bloodGlucose: enteredBloodGlucose,
+      glucose: enteredBloodGlucose,
     };
 
     setBloodGlucose(updatedBloodGlucose);
@@ -34,38 +75,40 @@ const DailyGlucose = () => {
 
   return (
     <div>
-      <LineChart
-        width={window.innerWidth * 0.75}
-        height={window.innerHeight * 0.5}
-        data={bloodGlucose}
-        margin={{ top: 0, right: 5, bottom: 10, left: 0 }}
-      >
-        <Line
-          type="Linear"
-          dataKey="bloodGlucose"
-          stroke="#FF0A0A"
-          strokeWidth="2"
-        />
-        <CartesianGrid stroke="#C03535" opacity={0.5} strokeDasharray="10" />
-        <XAxis
-          dataKey="hours"
-          stroke="#FF0A0A"
-          label={{
-            value: "hours",
-            position: "insideBottom",
-            dy: 10,
-          }}
-        />
-        <YAxis
-          stroke="#FF0A0A"
-          label={{
-            value: "mg/dL",
-            angle: -90,
-            position: "insideLeft",
-          }}
-        />
-        <Tooltip />
-      </LineChart>
+      <div className="flex justify-center">
+        <LineChart
+          width={window.innerWidth * 0.75}
+          height={window.innerHeight * 0.5}
+          data={bloodGlucose}
+          margin={{ top: 0, right: 5, bottom: 10, left: 0 }}
+        >
+          <Line
+            type="Linear"
+            dataKey="glucose"
+            stroke="#FF0A0A"
+            strokeWidth="2"
+          />
+          <CartesianGrid stroke="#C03535" opacity={0.5} strokeDasharray="10" />
+          <XAxis
+            dataKey="hour"
+            stroke="#FF0A0A"
+            label={{
+              value: "hours",
+              position: "insideBottom",
+              dy: 10,
+            }}
+          />
+          <YAxis
+            stroke="#FF0A0A"
+            label={{
+              value: "mg/dL",
+              angle: -90,
+              position: "insideLeft",
+            }}
+          />
+          <Tooltip />
+        </LineChart>
+      </div>
       <h1 className="text-xl text-bloodGlucose-primary dark:text-bloodGlucoseDark-primary text-center border-b-2 border-bloodGlucose-primary dark:border-bloodGlucoseDark-primary mt-6 mb-4 pb-2">
         Add Blood Glucose
       </h1>
@@ -79,6 +122,7 @@ const DailyGlucose = () => {
             min={0}
             max={24}
             ref={hourRef}
+            defaultValue={new Date().getHours()}
             className="text-bloodGlucose-text dark:text-white border-2 border-bloodGlucose-primary dark:border-bloodGlucoseDark-primary rounded-lg bg-bloodGlucose-background dark:bg-bloodGlucoseDark-button outline-none p-1"
           />
         </div>
