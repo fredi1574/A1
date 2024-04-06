@@ -10,10 +10,6 @@ import {
 } from "recharts";
 
 const MonthlyPressure = () => {
-  useEffect(() => {
-    alert("This component is still under construction");
-  });
-
   const username = localStorage.getItem("username");
 
   // Get the number of days in the current month

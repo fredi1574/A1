@@ -13,7 +13,6 @@ import { hours } from "../../utils/timeArrays";
 
 const DailyChart = () => {
   const username = localStorage.getItem("username");
-  const today = new Date().toLocaleDateString("en-IL");
 
   const [pressure, setPressure] = useState(
     hours.map((hour) => ({ hour, systolic: 0, diastolic: 0 }))
@@ -48,16 +47,16 @@ const DailyChart = () => {
   }, [username]);
 
   const addData = async () => {
+    const hour = parseInt(hoursRef.current.value, 10);
     const systolic = parseInt(systolicRef.current.value, 10);
     const diastolic = parseInt(diastolicRef.current.value, 10);
-    const hour = parseInt(hoursRef.current.value, 10);
 
     const newData = { hour, systolic, diastolic };
 
     try {
       await axios.post(
         import.meta.env.VITE_API_URI + `/bloodPressure/addPressure`,
-        { username, hour, date: today, systolic, diastolic }
+        { username, hour, date: new Date().getTime(), systolic, diastolic }
       );
       console.log(newData);
 
