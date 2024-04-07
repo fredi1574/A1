@@ -2,7 +2,6 @@ import axios from "axios";
 
 import { useRef, useState, useEffect } from "react";
 import { days } from "../../utils/timeArrays";
-// import { useCurrentWeekBounds } from "../../hooks/useCurrentWeekBounds";
 import getCurrentWeekBounds from "../../utils/getCurrentWeekBounds";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
