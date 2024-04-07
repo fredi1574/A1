@@ -124,7 +124,7 @@ const WeeklySteps = () => {
             <>
               <input
                 type="date"
-                defaultValue={new Date().getDate().toString()}
+                defaultValue={new Date().toISOString().split("T")[0]}
                 ref={selectedDateRef}
                 min={sunday.toISOString().split("T")[0]}
                 max={saturday.toISOString().split("T")[0]}
