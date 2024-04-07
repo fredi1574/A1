@@ -4,13 +4,8 @@ import MonthChart from "./MonthChart";
 import YearChart from "./YearChart";
 import WeightDescription from "./WeightDescription";
 import Header from "../../components/Header";
-import { useEffect } from "react";
 
 const Weight = () => {
-  useEffect(() => {
-    alert("This component is still under construction");
-  });
-
   return (
     <div>
       <Header
