@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import {
   LineChart,
   Line,
@@ -10,46 +10,20 @@ import {
 import { months } from "../../utils/timeArrays";
 
 const YearChart = () => {
-  const weightRef = useRef();
-  const monthRef = useRef();
-  const [data, setData] = useState(
-    months.map((month) => ({
+  const [weight, setWeight] = useState(
+    Object.entries(months).map(([month]) => ({
       month,
-      weight: 0,
+      weight: Math.floor(Math.random() * 5) + 50, // generate a random number between 50-55
     }))
   );
-
-  const addWeight = () => {
-    const enteredWeight = parseInt(weightRef.current.value, 10);
-    const selectedMonth = monthRef.current.value;
-
-    const updatedData = [...data];
-    const selectedMonthIndex = updatedData.findIndex(
-      (month) => month.month === selectedMonth
-    );
-
-    if (selectedMonthIndex !== -1) {
-      updatedData[selectedMonthIndex] = {
-        month: selectedMonth,
-        weight: enteredWeight,
-      };
-    }
-
-    setData(updatedData);
-
-    weightRef.current.value = "";
-    monthRef.current.value = new Date().toLocaleString("default", {
-      month: "long",
-    });
-  };
 
   return (
     <div className="flex justify-center">
       <LineChart
         width={window.innerWidth * 0.75}
         height={window.innerHeight * 0.5}
-        data={data}
-        margin={{ top: 0, right: 0, bottom: 5, left: 0 }}
+        data={weight}
+        margin={{ top: 0, right: 5, bottom: 5, left: 0 }}
       >
         <Line type="monotone" dataKey="weight" stroke="#55A33E" />
         <CartesianGrid stroke="#B5DB80" strokeDasharray="10" />

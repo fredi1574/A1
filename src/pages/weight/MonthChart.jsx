@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-
+import axios from "axios";
 import {
   LineChart,
   Line,
@@ -11,25 +11,53 @@ import {
 import { weeks } from "../../utils/timeArrays";
 
 const MonthChart = () => {
+  const username = localStorage.getItem("username");
+
   const [weight, setWeight] = useState(
-    weeks.map((week) => ({ weeks: week, weight: 0 }))
+    weeks.map((week) => ({
+      weeks: week,
+      weight: Math.floor(Math.random() * 5) + 50,
+    }))
   );
   const weekRef = useRef();
   const weightRef = useRef();
 
-  const handleAddWeight = () => {
+  const handleAddWeight = async () => {
     const enteredWeight = parseInt(weightRef.current.value, 10);
     const enteredWeek = parseInt(weekRef.current.value, 10);
 
-    const newData = [...weight];
-    newData[enteredWeek] = {
+    const weightData = {
+      username: username,
       weight: enteredWeight,
-      weeks: enteredWeek,
+      weekNumber: enteredWeek,
+      date: new Date().getTime(),
     };
 
-    setWeight(newData);
+    console.log(weightData);
 
-    weightRef.current.value = "";
+    try {
+      const response = await axios.post(
+        import.meta.env.VITE_API_URI + "/weight/addWeight",
+        weightData
+      );
+
+      console.log(weightData);
+
+      if (response.status === 200) {
+        const newData = [...weight];
+        newData[enteredWeek] = {
+          weight: enteredWeight,
+          weeks: enteredWeek,
+        };
+
+        setWeight(newData);
+        weightRef.current.value = "";
+      } else {
+        console.error("Failed to add weight:", response.data);
+      }
+    } catch (error) {
+      console.error("Error adding weight:", error);
+    }
   };
 
   return (
@@ -39,7 +67,7 @@ const MonthChart = () => {
           width={window.innerWidth * 0.75}
           height={window.innerHeight * 0.5}
           data={weight}
-          margin={{ top: 0, right: 0, bottom: 5, left: 0 }}
+          margin={{ top: 0, right: 5, bottom: 5, left: 0 }}
         >
           <Line type="monotone" dataKey="weight" stroke="#55A33E" />
           <CartesianGrid stroke="#B5DB80" strokeDasharray="10" />
